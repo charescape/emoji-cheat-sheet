@@ -35,5 +35,5 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          branch: "main"
+          branch: "master"
           commit_message: "auto update package-lock.json"
