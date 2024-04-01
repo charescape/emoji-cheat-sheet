@@ -1,0 +1,39 @@
+name: npm
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - package.json
+      - .github/workflows/npm.yml
+
+jobs:
+  update:
+    name: "Node 18 on ubuntu-latest"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: git config user.email "charescape@outlook.com"
+      - run: git config user.name  "charescape"
+
+      - run: rm -f package-lock.json
+      - run: npm install
+
+      - run: git status
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: "main"
+          commit_message: "auto update package-lock.json"
